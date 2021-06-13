@@ -1,0 +1,29 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "Teste",
+      "price": 50
+    },
+    {
+      "id": 2,
+      "name": "Cadastro sem ID",
+      "price": 1
+    },
+    {
+      "name": "Mais um",
+      "price": 2,
+      "id": 3
+    },
+    {
+      "id": 4,
+      "name": "Qualquer Nome Aqui",
+      "price": 99
+    },
+    {
+      "name": "Telefone",
+      "price": 300,
+      "id": 5
+    }
+  ]
+}
