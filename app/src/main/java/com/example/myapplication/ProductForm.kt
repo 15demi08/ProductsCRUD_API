@@ -68,7 +68,10 @@ class ProductForm : AppCompatActivity() {
 
         }
 
-        lblProductFormTitle.text = getString(R.string.prodForm_title, intent.action?.capitalize()) // String with Placeholder: '%1$s Product'. %1 is the index, $s denotes String
+        var titlePieceID = if(intent.action == "new") R.string.prodForm_titlePiece_new else R.string.prodForm_titlePiece_edit
+
+        // R.string.prodForm_title is a String with Placeholders: '%1$s %2$s'. %1 and %2 are indexes, $s denotes String. Result is "[New|Edit] Product", localized
+        lblProductFormTitle.text = getString(R.string.prodForm_title, getString(titlePieceID), getString(R.string.prodForm_titlePiece_product)  )
 
     }
 

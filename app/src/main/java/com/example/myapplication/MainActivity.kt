@@ -14,6 +14,7 @@ import com.example.myapplication.model.ProductRepo
 import com.example.myapplication.model.ProductRepo2
 import com.example.myapplication.service.ProductClient
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.snackbar.Snackbar
 import kotlin.math.roundToInt
 
 class MainActivity : AppCompatActivity(), ProductAdapter.PACL {
@@ -51,7 +52,7 @@ class MainActivity : AppCompatActivity(), ProductAdapter.PACL {
 
             },
             onFailure = {
-                showToast(it!!)
+                showSnackbar(it!!)
             }
         )
 
@@ -71,7 +72,7 @@ class MainActivity : AppCompatActivity(), ProductAdapter.PACL {
                 findViewById<RecyclerView>(R.id.productList).adapter?.notifyDataSetChanged()
             },
             onFailure = {
-                showToast(it!!)
+                showSnackbar(it!!)
             }
         )
 
@@ -95,7 +96,7 @@ class MainActivity : AppCompatActivity(), ProductAdapter.PACL {
 
         if (resultCode == -1 ) {
 
-            showToast(R.string.prodList_msg_canceled)
+            showSnackbar(R.string.prodList_msg_canceled)
 
         } else {
 
@@ -105,8 +106,8 @@ class MainActivity : AppCompatActivity(), ProductAdapter.PACL {
 
                     when (resultCode) {
 
-                        0 -> { /* Erro */ }
-                        1 -> showToast(R.string.prodList_msg_saved)
+                        0 -> showSnackbar(data?.getIntExtra("message", 0)!!)
+                        1 -> showSnackbar(R.string.prodList_msg_saved)
 
                     }
 
@@ -115,9 +116,9 @@ class MainActivity : AppCompatActivity(), ProductAdapter.PACL {
 
                     when (resultCode) {
 
-                        0 -> showToast(data?.getStringExtra("message")!!)
-                        1 -> showToast(R.string.prodList_msg_modified)
-                        2 -> showToast(R.string.prodList_msg_deleted)
+                        0 -> showSnackbar(data?.getIntExtra("message", 0)!!)
+                        1 -> showSnackbar(R.string.prodList_msg_modified)
+                        2 -> showSnackbar(R.string.prodList_msg_deleted)
 
                     }
 
@@ -132,7 +133,6 @@ class MainActivity : AppCompatActivity(), ProductAdapter.PACL {
 
     }
 
-    private fun showToast( msg:Int ) = Toast.makeText( this, getString(msg), Toast.LENGTH_LONG).show()
-    private fun showToast( msg:String ) = Toast.makeText( this, msg, Toast.LENGTH_LONG).show()
+    private fun showSnackbar( msg:Int ) = Snackbar.make(findViewById(R.id.layoutFABContainer), msg, Snackbar.LENGTH_SHORT ).setAnimationMode(Snackbar.ANIMATION_MODE_SLIDE).show()
 
 }

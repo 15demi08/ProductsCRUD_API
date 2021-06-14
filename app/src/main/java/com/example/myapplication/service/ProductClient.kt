@@ -10,11 +10,11 @@ import retrofit2.Response
 class ProductClient( val productAPI:ProductAPI? = RetrofitBase().service ) {
 
     /**
-     * Returns all Products currently saved to the database
+     * Returns all Products currently saved in the database
      */
     fun getAll(
-        onSuccess: ( products: ArrayList<Product>? ) -> Unit,
-        onFailure: ( message: String? ) -> Unit
+        onSuccess: ( products:ArrayList<Product>? ) -> Unit,
+        onFailure: ( message:Int? ) -> Unit
     ){
 
         productAPI?.getAll()?.enqueue(productsListCallback(onSuccess, onFailure))
@@ -27,7 +27,7 @@ class ProductClient( val productAPI:ProductAPI? = RetrofitBase().service ) {
     fun getByID(
         id: Int,
         onSuccess: ( product: Product? ) -> Unit,
-        onFailure: ( message: String? ) -> Unit
+        onFailure: ( message:Int? ) -> Unit
     ){
 
         productAPI?.getByID(id)?.enqueue(productCallback(onSuccess, onFailure))
@@ -40,7 +40,7 @@ class ProductClient( val productAPI:ProductAPI? = RetrofitBase().service ) {
     fun save(
         product:Product,
         onSuccess: ( p:Product? ) -> Unit,
-        onFailure: ( message: String? ) -> Unit
+        onFailure: ( message:Int? ) -> Unit
     ){
 
         if( product.id == null ){ // Saving a new product to the database
@@ -61,7 +61,7 @@ class ProductClient( val productAPI:ProductAPI? = RetrofitBase().service ) {
     fun delete(
         id:Int,
         onSuccess: ( product:Product? ) -> Unit,
-        onFailure: ( message: String? ) -> Unit
+        onFailure: ( message:Int? ) -> Unit
     ){
 
         productAPI?.delete(id)?.enqueue(productCallback(onSuccess, onFailure))
@@ -73,7 +73,7 @@ class ProductClient( val productAPI:ProductAPI? = RetrofitBase().service ) {
      */
     private fun productCallback(
         onSuccess: ( product:Product? ) -> Unit,
-        onFailure: ( message:String? ) -> Unit
+        onFailure: ( message:Int? ) -> Unit
     ):Callback<Product>{
 
         return object:Callback<Product>{
@@ -82,12 +82,12 @@ class ProductClient( val productAPI:ProductAPI? = RetrofitBase().service ) {
                 if(response.isSuccessful)
                     onSuccess( response.body() ) // A "Product" is always returned. The caller method can simply do nothing with it, however
                 else
-                    onFailure( Resources.getSystem().getString(R.string.prodList_msg_unknownError) + response.message() )
+                    onFailure( R.string.prodList_msg_unknownError )
 
             }
 
             override fun onFailure(call: Call<Product>, t: Throwable) {
-                onFailure( t.message )
+                onFailure( R.string.prodList_msg_unknownError )
             }
 
         }
@@ -99,7 +99,7 @@ class ProductClient( val productAPI:ProductAPI? = RetrofitBase().service ) {
      */
     private fun productsListCallback(
         onSuccess: ( products: ArrayList<Product>? ) -> Unit,
-        onFailure: ( msg:String? ) -> Unit
+        onFailure: ( msg:Int? ) -> Unit
     ):Callback<ArrayList<Product>>{
 
         return object:Callback<ArrayList<Product>>{
@@ -108,12 +108,12 @@ class ProductClient( val productAPI:ProductAPI? = RetrofitBase().service ) {
                 if(response.isSuccessful)
                     onSuccess( response.body() )
                 else
-                    onFailure( Resources.getSystem().getString(R.string.prodList_msg_unknownError) + response.message() )
+                    onFailure( R.string.prodList_msg_unknownError )
 
             }
 
             override fun onFailure(call: Call<ArrayList<Product>>, t: Throwable) {
-                onFailure( t.message )
+                onFailure( R.string.prodList_msg_unknownError )
             }
 
         }

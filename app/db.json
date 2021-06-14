@@ -24,6 +24,11 @@
       "name": "Telefone",
       "price": 300,
       "id": 5
+    },
+    {
+      "name": "Snackbar",
+      "price": 0,
+      "id": 6
     }
   ]
 }

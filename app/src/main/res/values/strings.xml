@@ -12,6 +12,9 @@
     <string name="prodList_msg_modified">Product was modified successfully.</string>
     <string name="prodList_msg_deleted">Product was deleted successfully.</string>
     <string name="prodList_msg_canceled">Operation was canceled.</string>
-    <string name="prodList_msg_unknownError">An unknown error occured. Message:</string>
-    <string name="prodForm_title">%1$s Product</string>
+    <string name="prodList_msg_unknownError">An unknown error occured.</string>
+    <string name="prodForm_title">%1$s %2$s</string>
+    <string name="prodForm_titlePiece_new">New</string>
+    <string name="prodForm_titlePiece_edit">Edit</string>
+    <string name="prodForm_titlePiece_product">Product</string>
 </resources>
